@@ -4,7 +4,9 @@
       <v-flex md-12>
         <v-card v-for="todo in todos" :key="todo.id">
           <v-card-title>{{ todo.name }}</v-card-title>
-          <v-card-text>期限: {{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</v-card-text>
+          <v-card-text
+            >期限: {{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</v-card-text
+          >
         </v-card>
       </v-flex>
     </v-layout>
@@ -28,6 +30,43 @@ export default {
           id: uuid(),
           name: 'データベースを作成する',
           deadline: moment('2019-08-02 18:00'),
+        },
+
+        {
+          id: uuid(),
+          name: 'スプリントレビューの練習',
+          deadline: moment('2019-08-01 16:30'),
+        },
+        {
+          id: uuid(),
+          name: 'Todoリストのレイアウト相談',
+          deadline: moment('2019-08-01 15:30'),
+        },
+        {
+          id: uuid(),
+          name: 'データの追加',
+          deadline: moment('2019-08-01 16:00'),
+        },
+        {
+          id: uuid(),
+          name: '開発環境の構築',
+          deadline: moment('2019-08-01 10:30'),
+        },
+        { id: uuid(), name: '昼食', deadline: moment('2019-08-01 11:40') },
+        {
+          id: uuid(),
+          name: 'タピオカミルクティーを飲む',
+          deadline: moment('2019-08-03 14:30'),
+        },
+        {
+          id: uuid(),
+          name: 'ボタンの作成',
+          deadline: moment('2019-08-02 10:30'),
+        },
+        {
+          id: uuid(),
+          name: 'チーム決定',
+          deadline: moment('2019-07-07 15:30'),
         },
         {
           id: uuid(),
