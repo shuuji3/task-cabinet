@@ -7,6 +7,13 @@
           <v-card-text
             >期限: {{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</v-card-text
           >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text>
+              <v-icon>mdi-check</v-icon>
+              <span class="ml-2">完了</span>
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -20,7 +27,9 @@ import uuid from 'uuid/v4';
 export default {
   computed: {
     sortedTodos() {
-      return this.todos.slice().sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
+      return this.todos
+        .slice()
+        .sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
     },
   },
   data() {
