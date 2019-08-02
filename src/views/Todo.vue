@@ -45,7 +45,6 @@ export default {
           name: 'データベースを作成する',
           deadline: moment('2019-08-02 18:00'),
         },
-
         {
           id: uuid(),
           name: 'スプリントレビューの練習',
