@@ -19,7 +19,7 @@
     </v-layout>
     <v-layout mt-5>
       <v-flex>
-        <v-btn v-on:click="copyMessagingToken()">copy messaging token</v-btn>
+        <v-btn v-on:click="alertMessagingToken()">alert messaging token</v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -96,7 +96,7 @@ export default {
     };
   },
   methods: {
-    copyMessagingToken: () => {
+    alertMessagingToken: () => {
       firebase.messaging().getToken().then((token) => {
         alert(token);
       });
