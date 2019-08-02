@@ -1,4 +1,4 @@
-# アプリ"task-cabinet"
+# アプリ"Task Cabinet"
 
 ## エレベーターピッチ
 今、自分が何をすべきかを手が空いた時に通知してくれるタスク管理ツール「task-cabinet」
