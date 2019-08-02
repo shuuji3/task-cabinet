@@ -43,64 +43,61 @@ export default {
       todos: [
         {
           id: uuid(),
-          name: 'Task Cabinet をデプロイする',
-          deadline: moment('2019-08-01 18:00'),
+          name: 'PWAの調査',
+          deadline: moment('2019-08-03 10:30'),
         },
         {
           id: uuid(),
-          name: 'データベースを作成する',
-          deadline: moment('2019-08-02 18:00'),
+          name: 'ローカルでPWAを動くか',
+          deadline: moment('2019-08-03 11:00'),
         },
         {
           id: uuid(),
-          name: 'スプリントレビューの練習',
-          deadline: moment('2019-08-01 16:30'),
+          name: 'Firebaseの通知ができなくなった',
+          deadline: moment('2019-08-03 15:00'),
         },
         {
           id: uuid(),
-          name: 'Todoリストのレイアウト相談',
-          deadline: moment('2019-08-01 15:30'),
+          name: 'Firebaseの調査',
+          deadline: moment('2019-08-03 14:00'),
         },
         {
           id: uuid(),
-          name: 'データの追加',
-          deadline: moment('2019-08-01 16:00'),
+          name: 'サーバーからほしい情報をまとめる',
+          deadline: moment('2019-08-03 13:30'),
         },
         {
           id: uuid(),
-          name: '開発環境の構築',
-          deadline: moment('2019-08-01 10:30'),
-        },
-        { id: uuid(), name: '昼食', deadline: moment('2019-08-01 11:40') },
-        {
-          id: uuid(),
-          name: 'タピオカミルクティーを飲む',
-          deadline: moment('2019-08-03 14:30'),
+          name: 'Todoリストのアップデート',
+          deadline: moment('2019-08-03 16:00'),
         },
         {
           id: uuid(),
-          name: 'ボタンの作成',
-          deadline: moment('2019-08-02 10:30'),
+          name: 'Vue.jsのpush通知の調査',
+          deadline: moment('2019-08-03 10:00'),
         },
         {
           id: uuid(),
-          name: 'チーム決定',
-          deadline: moment('2019-07-07 15:30'),
+          name: '通知するTodoを決める',
+          deadline: moment('2019-08-03 16:15'),
         },
         {
           id: uuid(),
-          name: '紙飛行機を飛ばす',
-          deadline: moment('2019-07-31 10:00'),
+          name: 'デプロイ環境でのパス問題の解決',
+          deadline: moment('2019-08-03 15:45'),
         },
       ],
     };
   },
   methods: {
     alertMessagingToken: () => {
-      firebase.messaging().getToken().then((token) => {
-        alert(token);
-      });
+      firebase
+        .messaging()
+        .getToken()
+        .then(token => {
+          alert(token);
+        });
     },
-  }
+  },
 };
 </script>
