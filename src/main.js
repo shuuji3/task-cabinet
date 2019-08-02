@@ -15,17 +15,15 @@ new Vue({
   render: h => h(App),
 }).$mount('#app');
 
-// Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: 'AIzaSyDlAWtdswE7S_jUzNrnna3h7V5ariXi_e8',
-  authDomain: 'task-cabinet.firebaseapp.com',
-  databaseURL: 'https://task-cabinet.firebaseio.com',
-  projectId: 'task-cabinet',
-  storageBucket: '',
-  messagingSenderId: '1088200976068',
-  appId: '1:1088200976068:web:92569e254386d831',
+  apiKey: "AIzaSyDlAWtdswE7S_jUzNrnna3h7V5ariXi_e8",
+  authDomain: "task-cabinet.firebaseapp.com",
+  databaseURL: "https://task-cabinet.firebaseio.com",
+  projectId: "task-cabinet",
+  storageBucket: "",
+  messagingSenderId: "1088200976068",
+  appId: "1:1088200976068:web:92569e254386d831"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
