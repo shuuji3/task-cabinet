@@ -4,7 +4,6 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import vuetify from './plugins/vuetify';
-import vueConfig from '../vue.config';
 import * as firebase from 'firebase';
 
 Vue.config.productionTip = false;
@@ -34,22 +33,16 @@ messaging.usePublicVapidKey(
   'BKWGEMGWg78ApjGMWvx8YY0IwTBgJhwnFZDbHfWliWOn7RRVSCVh40SjNnYS18ManOz7uc3nfLTHvjslBvigiM0'
 );
 
-// navigator.serviceWorker
-//   .register(vueConfig.publicPath + 'firebase-messaging-sw.js')
-//   .then(registration => {
-//     messaging.useServiceWorker(registration);
+// 通知の受信許可
+Notification.requestPermission()
+  .then(() => {
+    console.log('Notification permission granted.');
 
-    // 通知の受信許可
-    Notification.requestPermission()
-      .then(() => {
-        console.log('Notification permission granted.');
-
-        // トークン取得
-        messaging.getToken().then(token => {
-          console.log(token);
-        });
-      })
-      .catch(err => {
-        console.log('Unable to get permission to notify.', err);
-      });
-  // });
+    // トークン取得
+    messaging.getToken().then(token => {
+      console.log(token);
+    });
+  })
+  .catch(err => {
+    console.log('Unable to get permission to notify.', err);
+  });
