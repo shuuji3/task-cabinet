@@ -44,24 +44,27 @@
       <!--日付の選択-->
       <v-flex xs12 sm12>
         <v-layout column :align-center="true">
-        <v-time-picker
-          v-model="time"
-          class="mt-2"
-          format="24hr"
-        ></v-time-picker>
-      </v-layout>
+          <v-time-picker
+            v-model="time"
+            class="mt-2"
+            format="24hr"
+          ></v-time-picker>
+        </v-layout>
       </v-flex>
       <!--登録ボタン-->
       <v-flex xs12 sm12>
         <div class="my-4">
-        <v-btn  color="primary">登録</v-btn>
-      </div>
+          <v-btn color="primary" @click="addTodo">登録</v-btn>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import moment from 'moment';
+import uuid from 'uuid/v4';
+
 export default {
   computed: {
     sortedTodos() {
@@ -80,6 +83,16 @@ export default {
       menu2: false,
     };
   },
-  methods: {},
+  methods: {
+    addTodo() {
+      const newTodo = {
+        id: uuid(),
+        name: this.name,
+        deadline: moment(`${this.date} ${this.time}`),
+      };
+      this.$store.commit('addTodo', newTodo);
+      this.$router.push('/');
+    },
+  },
 };
 </script>
