@@ -17,18 +17,12 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-layout mt-5>
-      <v-flex>
-        <v-btn v-on:click="alertMessagingToken()">alert messaging token</v-btn>
-      </v-flex>
-    </v-layout>
   </v-container>
 </template>
 
 <script>
 import moment from 'moment';
 import uuid from 'uuid/v4';
-import * as firebase from 'firebase';
 
 export default {
   computed: {
@@ -88,16 +82,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    alertMessagingToken: () => {
-      firebase
-        .messaging()
-        .getToken()
-        .then(token => {
-          alert(token);
-        });
-    },
   },
 };
 </script>
