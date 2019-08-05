@@ -22,6 +22,7 @@
 
 <script>
 import moment from 'moment';
+import push from 'push.js';
 import uuid from 'uuid/v4';
 
 export default {
@@ -82,6 +83,27 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.intervalId = setInterval(() => {
+      const todo = this.sortedTodos[0];
+      if (todo === undefined) {
+        return;
+      }
+
+      push.create(todo.name, {
+        body: todo.deadline.format('YYYY-MM-DD HH:mm'),
+        // icon: '/icon.png',
+        // timeout: 4000,
+        onClick: () => {
+          window.focus();
+          this.close();
+        },
+      });
+    }, 10 * 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
   },
 };
 </script>
