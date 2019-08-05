@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <v-btn to="/add">タスクを追加</v-btn>
+    <v-btn to="/add" fixed dark fab bottom right color="pink">
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
     <v-layout text-center wrap>
       <v-flex md-12>
         <v-card v-for="todo in sortedTodos" :key="todo.id">
@@ -21,6 +23,12 @@
   </v-container>
 </template>
 
+<style>
+  .container {
+    margin-bottom: 5em;
+  }
+</style>
+
 <script>
 import push from 'push.js';
 
@@ -38,7 +46,7 @@ export default {
   methods: {
     doneTodo(todo) {
       this.$store.commit('removeTodo', todo);
-    }
+    },
   },
   mounted() {
     this.intervalId = setInterval(() => {
