@@ -10,7 +10,7 @@ CS1年
 高橋, 畑中, 松本, 江畑, 小坂, 高木
 
 ## デプロイ先URL
-https://task-cabinet.herokuapp.com/
+https://enpitut2019.github.io/task-cabinet/
 
 ## Development
 
