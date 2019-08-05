@@ -80,7 +80,6 @@ export default {
       time: null,
       menu: false,
       modal: false,
-      menu2: false,
     };
   },
   methods: {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AddTodo from './views/TodoAdd';
+import TodoAdd from './views/TodoAdd';
 import Todo from './views/Todo';
 
 Vue.use(Router);
@@ -17,7 +17,7 @@ export default new Router({
     {
       path: '/add',
       name: 'add',
-      component: AddTodo,
+      component: TodoAdd,
     },
   ],
 });

@@ -26,9 +26,6 @@ import push from 'push.js';
 
 export default {
   computed: {
-    // todos() {
-    //   return this.$store.state.todos;
-    // },
     sortedTodos() {
       return this.$store.state.todos
         .slice()
