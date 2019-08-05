@@ -3,6 +3,11 @@
     <v-btn to="/add">タスクを追加</v-btn>
     <v-layout text-center wrap>
       <v-flex md-12>
+        <div v-if="sortedTodos.length === 0" class="headline">
+          <v-icon>mdi-anchor</v-icon>
+          <span class="pl-2 pr-2">[タスク]は空です</span>
+          <v-icon>mdi-watch</v-icon>
+        </div>
         <v-card v-for="todo in sortedTodos" :key="todo.id">
           <v-card-title>{{ todo.name }}</v-card-title>
           <v-card-text
