@@ -58,6 +58,12 @@ export default new Vuex.Store({
   mutations: {
     addTodo(state, newTodo) {
       state.todos.push(newTodo)
+    },
+    removeTodo(state, todo) {
+      const idx = state.todos.findIndex(v => v.id === todo.id);
+      if (idx !== undefined) {
+        state.todos.splice(idx, 1);
+      }
     }
   },
   actions: {},

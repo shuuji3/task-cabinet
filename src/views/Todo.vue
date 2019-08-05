@@ -10,7 +10,7 @@
           >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text>
+            <v-btn text @click="doneTodo(todo)">
               <v-icon>mdi-check</v-icon>
               <span class="ml-2">完了</span>
             </v-btn>
@@ -34,6 +34,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    doneTodo(todo) {
+      this.$store.commit('removeTodo', todo);
+    }
   },
   mounted() {
     this.intervalId = setInterval(() => {
