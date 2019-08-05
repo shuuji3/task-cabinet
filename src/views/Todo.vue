@@ -93,8 +93,6 @@ export default {
 
       push.create(todo.name, {
         body: todo.deadline.format('YYYY-MM-DD HH:mm'),
-        // icon: '/icon.png',
-        // timeout: 4000,
         onClick: () => {
           window.focus();
           this.close();
