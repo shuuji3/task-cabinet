@@ -50,6 +50,7 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <button v-on:click="getAll">GetALLLLLL2</button>
   </v-container>
 </template>
 
@@ -82,17 +83,14 @@
 
 <script>
 import push from 'push.js';
+import moment from 'moment';
+import uuid from 'uuid/v4';
 
 export default {
-  computed: {
-    sortedTodos() {
-      return this.$store.state.todos
-        .slice()
-        .sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
-    },
-  },
   data() {
-    return {};
+    return {
+      sortedTodos: [],
+    };
   },
   methods: {
     doneTodo(todo) {
@@ -103,7 +101,6 @@ export default {
       if (todos.length === 0) {
         return null;
       }
-
       const sorted = todos
         .sort((todo1, todo2) => {
           return (todo1.deadline.diff(todo2.deadline) !== 0
@@ -112,8 +109,25 @@ export default {
       return (Math.random()<0.5)
         ? sorted[0] : sorted[Math.floor(Math.random()*sorted.length)];
     }
+    //   return todo;
+    // },
+    // getAll: async function() {
+    //   // indexedDB を開きます。
+    //   let request = await indexedDB.open('task_cabinet', 3);
+    //   console.log("getAll");
+    //   request.onsuccess = async function (event) {
+    //     const db_instance = event.target.result;
+    //     const tx = await db_instance.transaction(["task"], "readwrite");
+    //     const store = tx.objectStore('task');
+    //     store.getAll().onsuccess = async function(event) {
+    //       this.sortedTodos = await event.target.result;
+    //       console.log(event.target.result);
+    //     };
+    //   };
+    // },
   },
   mounted() {
+    this.getAll();  // TODO: 動け
     this.intervalId = setInterval(() => {
       const todo = this.findRecommendedTodo();
       if (todo === null) {
@@ -128,6 +142,7 @@ export default {
         },
       });
     }, 10 * 1000);
+
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
