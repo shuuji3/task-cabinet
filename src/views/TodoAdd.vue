@@ -41,7 +41,7 @@
           </v-date-picker>
         </v-menu>
       </v-flex>
-      <!--日付の選択-->
+      <!--時刻の選択-->
       <v-flex xs12 sm12>
         <v-layout column :align-center="true">
           <v-time-picker
@@ -120,10 +120,12 @@ export default {
     },
   },
   data() {
+    let jst = new Date();
+    jst.setTime(jst.getTime()+1000*60*60*9);
     return {
       name: '',
-      date: new Date().toISOString().substr(0, 10),
-      time: null,
+      date: jst.toISOString().substr(0, 10),
+      time: jst.toISOString().substr(11, 5),
       estimate: 50,
       menu: false,
       modal: false,
