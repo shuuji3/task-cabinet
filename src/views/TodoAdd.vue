@@ -52,13 +52,26 @@
         </v-layout>
       </v-flex>
       <!--見積もり時間の登録-->
-      <v-flex xs12 sm12>
-        <v-slider 
-        v-model="estimate"
-        label="見積もり時間"
-        min="1"
-        max="100">
-        </v-slider>
+      <v-flex xs12 sm12 mt-10 mb-4>
+        <v-layout column :align-center="true">
+          <div class="estimate-time">
+            <label
+              class="v-label theme--light mb-2"
+              for="estimate-time">見積もり時間</label>
+            <div class="estimate_time__input">
+              <span class="v-label theme--light">短い</span>
+              <div class="estimate-time__slider">
+                <v-slider
+                  v-model="estimate"
+                  id="estimate-time"
+                  min="1"
+                  max="100"
+                ></v-slider>
+              </div>
+              <span class="v-label theme--light">長い</span>
+            </div>
+          </div>
+        </v-layout>
       </v-flex>
       <!--登録ボタン-->
       <v-flex xs12 sm12>
@@ -69,6 +82,30 @@
     </v-layout>
   </v-container>
 </template>
+
+<style>
+  .estimate-time {
+    max-width: 290px;
+    width: 100%;
+  }
+
+  .estimate_time__input {
+    align-items: center;
+    display: flex;
+  }
+
+  .estimate-time__slider {
+    flex: 1;
+  }
+
+  .estimate-time__slider .v-input__slot {
+    margin-bottom: 0;
+  }
+
+  .estimate-time__slider .v-messages {
+    display: none;
+  }
+</style>
 
 <script>
 import moment from 'moment';
@@ -89,7 +126,7 @@ export default {
       name: '',
       date: jst.toISOString().substr(0, 10),
       time: jst.toISOString().substr(11, 5),
-      estimate: 1,
+      estimate: 50,
       menu: false,
       modal: false,
     };
