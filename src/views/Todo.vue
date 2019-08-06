@@ -15,6 +15,9 @@
           <v-card-text
             >期限: {{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</v-card-text
           >
+          <v-card-text>
+            見積もり時間: {{ todo.estimate }}
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn text @click="doneTodo(todo)">
