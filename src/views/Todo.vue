@@ -3,20 +3,42 @@
     <v-btn to="/add" fixed dark fab bottom right color="pink">
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-    <v-layout text-center wrap>
+    <v-layout wrap>
       <v-flex md-12>
-        <div v-if="sortedTodos.length === 0" class="headline my-12">
+        <div v-if="sortedTodos.length === 0" class="headline text-center my-12">
           <v-icon>mdi-anchor</v-icon>
           <span class="pl-2 pr-2">[タスク]は空です</span>
           <v-icon>mdi-watch</v-icon>
         </div>
         <v-card v-for="todo in sortedTodos" :key="todo.id">
           <v-card-title>{{ todo.name }}</v-card-title>
-          <v-card-text
-            >期限: {{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</v-card-text
-          >
           <v-card-text>
-            見積もり時間: {{ todo.estimate }}
+            <v-simple-table class="todo-datails text-center">
+              <tbody>
+              <tr>
+                <th>期限</th>
+                <td>{{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</td>
+              </tr>
+              <tr>
+                <th>見積もり時間</th>
+                <td>
+                  <div class="estimate_time__input">
+                    <span class="v-label theme--light">短い</span>
+                    <div class="estimate-time__slider">
+                      <v-slider
+                        v-model="todo.estimate"
+                        id="estimate-time"
+                        min="1"
+                        max="100"
+                        readonly="readonly"
+                      ></v-slider>
+                    </div>
+                    <span class="v-label theme--light">長い</span>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </v-simple-table>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -34,6 +56,27 @@
 <style>
   .container {
     margin-bottom: 5em;
+  }
+
+  .todo-datails tr {
+    background: none !important;
+  }
+
+  .estimate_time__input {
+    align-items: center;
+    display: flex;
+  }
+
+  .estimate-time__slider {
+    flex: 1;
+  }
+
+  .estimate-time__slider .v-input__slot {
+    margin-bottom: 0;
+  }
+
+  .estimate-time__slider .v-messages {
+    display: none;
   }
 </style>
 
