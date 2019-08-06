@@ -52,13 +52,17 @@
         </v-layout>
       </v-flex>
       <!--見積もり時間の登録-->
-      <v-flex xs12 sm12>
-        <v-slider 
-        v-model="estimate"
-        label="見積もり時間"
-        min="1"
-        max="100">
-        </v-slider>
+      <v-flex xs12 sm12 mt-10 mb-4>
+        <v-layout column :align-center="true">
+          <div class="estimate-time">
+            <v-slider
+              v-model="estimate"
+              label="見積もり時間"
+              min="1"
+              max="100"
+            ></v-slider>
+          </div>
+        </v-layout>
       </v-flex>
       <!--登録ボタン-->
       <v-flex xs12 sm12>
@@ -69,6 +73,13 @@
     </v-layout>
   </v-container>
 </template>
+
+<style>
+  .estimate-time {
+    max-width: 290px;
+    width: 100%;
+  }
+</style>
 
 <script>
 import moment from 'moment';
@@ -87,7 +98,7 @@ export default {
       name: '',
       date: new Date().toISOString().substr(0, 10),
       time: null,
-      estimate: 1,
+      estimate: 50,
       menu: false,
       modal: false,
     };
