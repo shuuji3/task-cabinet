@@ -52,11 +52,19 @@ export default {
     doneTodo(todo) {
       this.$store.commit('removeTodo', todo);
     },
+    findRecommendedTodo() {
+      const todo = this.sortedTodos[0];
+      if (todo === undefined) {
+        return null;
+      }
+
+      return todo;
+    }
   },
   mounted() {
     this.intervalId = setInterval(() => {
-      const todo = this.sortedTodos[0];
-      if (todo === undefined) {
+      const todo = this.findRecommendedTodo();
+      if (todo === null) {
         return;
       }
 
