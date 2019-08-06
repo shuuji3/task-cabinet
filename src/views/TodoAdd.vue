@@ -51,6 +51,15 @@
           ></v-time-picker>
         </v-layout>
       </v-flex>
+      <!--見積もり時間の登録-->
+      <v-flex xs12 sm12>
+        <v-slider 
+        v-model="estimate"
+        label="見積もり時間"
+        min="1"
+        max="100">
+        </v-slider>
+      </v-flex>
       <!--登録ボタン-->
       <v-flex xs12 sm12>
         <div class="my-4">
@@ -78,6 +87,7 @@ export default {
       name: '',
       date: new Date().toISOString().substr(0, 10),
       time: null,
+      estimate: 1,
       menu: false,
       modal: false,
     };
@@ -88,6 +98,7 @@ export default {
         id: uuid(),
         name: this.name,
         deadline: moment(`${this.date} ${this.time}`),
+        estimate: this.estimate,
       };
       this.$store.commit('addTodo', newTodo);
       this.$router.push('/');
