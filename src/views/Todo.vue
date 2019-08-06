@@ -99,12 +99,16 @@ export default {
       this.$store.commit('removeTodo', todo);
     },
     findRecommendedTodo() {
-      const todo = this.sortedTodos[0];
-      if (todo === undefined) {
+      const todos = this.$store.state.todos.slice();
+      if (todos.length === 0) {
         return null;
       }
 
-      return todo;
+      return todos
+        .sort((todo1, todo2) => {
+          return (todo1.deadline.diff(todo2.deadline) !== 0
+            ? todo1.deadline.diff(todo2.deadline) : todo2.estimate  - todo1.estimate);
+        })[0];
     }
   },
   mounted() {
