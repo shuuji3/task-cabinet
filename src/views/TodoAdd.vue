@@ -55,12 +55,21 @@
       <v-flex xs12 sm12 mt-10 mb-4>
         <v-layout column :align-center="true">
           <div class="estimate-time">
-            <v-slider
-              v-model="estimate"
-              label="見積もり時間"
-              min="1"
-              max="100"
-            ></v-slider>
+            <label
+              class="v-label theme--light mb-2"
+              for="estimate-time">見積もり時間</label>
+            <div class="estimate_time__input">
+              <span class="v-label theme--light">短い</span>
+              <div class="estimate-time__slider">
+                <v-slider
+                  v-model="estimate"
+                  id="estimate-time"
+                  min="1"
+                  max="100"
+                ></v-slider>
+              </div>
+              <span class="v-label theme--light">長い</span>
+            </div>
           </div>
         </v-layout>
       </v-flex>
@@ -78,6 +87,23 @@
   .estimate-time {
     max-width: 290px;
     width: 100%;
+  }
+
+  .estimate_time__input {
+    align-items: center;
+    display: flex;
+  }
+
+  .estimate-time__slider {
+    flex: 1;
+  }
+
+  .estimate-time__slider .v-input__slot {
+    margin-bottom: 0;
+  }
+
+  .estimate-time__slider .v-messages {
+    display: none;
   }
 </style>
 
