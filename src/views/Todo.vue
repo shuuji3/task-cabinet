@@ -5,7 +5,7 @@
     </v-btn>
     <v-layout wrap>
       <v-flex md-12>
-        <div v-if="sortedTodos.length === 0" class="headline text-center">
+        <div v-if="sortedTodos.length === 0" class="headline text-center my-12">
           <v-icon>mdi-anchor</v-icon>
           <span class="pl-2 pr-2">[タスク]は空です</span>
           <v-icon>mdi-watch</v-icon>
