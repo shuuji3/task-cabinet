@@ -104,11 +104,13 @@ export default {
         return null;
       }
 
-      return todos
+      const sorted = todos
         .sort((todo1, todo2) => {
           return (todo1.deadline.diff(todo2.deadline) !== 0
             ? todo1.deadline.diff(todo2.deadline) : todo2.estimate  - todo1.estimate);
-        })[0];
+        });
+      return (Math.random()<0.5)
+        ? sorted[0] : sorted[Math.floor(Math.random()*sorted.length)];
     }
   },
   mounted() {
