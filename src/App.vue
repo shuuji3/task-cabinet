@@ -9,12 +9,6 @@
     <v-content>
       <router-view />
     </v-content>
-    <input type="text" v-model="taskText" id="todo-text" value="" placeholder="taskText" />
-    <input type="text" v-model="estimate" id="estimate" value="" placeholder="estimate" />
-    <input type="text" v-model="taskId" id="taskId" value="" placeholder="uuid" />
-    <button v-on:click="addTask">Add</button>
-    <button v-on:click="getAll">Greet</button>
-    <button v-on:click="remove">Delete</button>
     <ul id="todo-list">
     </ul>
   </v-app>
@@ -77,7 +71,7 @@
     },
     {
       id: uuid(),
-      name: 'デプロイ環境でのパス問題の解決',
+      name: 'デプロイ環境でのパス問題の解決DBDB',
       deadline: moment('2019-08-03 15:45').unix(),
       estimate: 7,
     },
@@ -114,78 +108,58 @@
         customerObjectStore.add(defaultTodoData[i]);
       }
     };
-    objectStore.getAll().onsuccess = function(event) {
-      alert("Got all task: " + event.target.result);
-    };
   };
 
-  // request.onsuccess = function (event) {
-  //   const db_instance = event.target.result;
-  //   console.log(db_instance);
-  //   const tx = db_instance.transaction(["customers"], "readwrite");
-  //   console.log(tx);
-  //   const store = tx.objectStore('customers');
-  //   console.log(store);
-  //   store.getAll().onsuccess = function(event) {
-  //     // alert("Got all customers: " + event.target.result);
-  //     event.target.result.forEach(customer => {
-  //       console.log(customer);
-  //     })
-  //   };
-  //   store.add(defaultTodoData[0]).onsuccess = function(event) {
-  //     console.log("Add Success!!")
-  //   };
-  // };
 
 export default {
   name: 'App',
   components: {},
   methods: {
-    getAll: function() {
-      // indexedDB を開きます。
-      let request = indexedDB.open('task_cabinet', 3);
-      console.log("getAll");
-      request.onsuccess = function (event) {
-        const db_instance = event.target.result;
-        const tx = db_instance.transaction(["task"], "readwrite");
-        const store = tx.objectStore('task');
-        store.getAll().onsuccess = function(event) {
-          event.target.result.forEach(customer => {
-            console.log(customer);
-          })
-        };
-      };
-    },
-    addTask: function () {
-      const taskText = this.taskText;
-      const estimate = this.estimate;
-      const deadline = moment().add(1, 'days').unix();
-
-      // indexedDB を開きます。
-      let request = indexedDB.open('task_cabinet', 3);
-      console.log("getAll");
-      request.onsuccess = function (event) {
-        const db_instance = event.target.result;
-        const tx = db_instance.transaction(["task"], "readwrite");
-        const store = tx.objectStore('task');
-        store.add({id: uuid(), name: taskText, deadline: deadline, estimate: estimate}).onsuccess = function(event) {
-          console.log("Seccess Save");
-          console.log("SaveResult:" + JSON.stringify({uuid: event.target.result, name: taskText, deadline: deadline, estimate: estimate}))
-        };
-      };
-    },
-    remove: function () {
-      const taskId = this.taskId;
-      let request = indexedDB.open('task_cabinet', 3);
-      request.onsuccess = function (event) {
-        const db_instance = event.target.result;
-        const tx = db_instance.transaction(["task"], "readwrite");
-        const store = tx.objectStore('task');
-        store.delete(taskId).onsuccess = function() {
-          console.log("success Delete!!!!!!!!")
-        };
-      };
-    }
+    // getAll: function() {
+    //   // indexedDB を開きます。
+    //   let request = indexedDB.open('task_cabinet', 1);
+    //   console.log("getAll");
+    //   request.onsuccess = function (event) {
+    //     const db_instance = event.target.result;
+    //     const tx = db_instance.transaction(["task"], "readwrite");
+    //     const store = tx.objectStore('task');
+    //     store.getAll().onsuccess = function(event) {
+    //       event.target.result.forEach(customer => {
+    //         console.log(customer);
+    //       })
+    //     };
+    //   };
+    // },
+    // addTask: function () {
+    //   const taskText = this.taskText;
+    //   const estimate = this.estimate;
+    //   const deadline = moment().add(1, 'days').unix();
+    //
+    //   // indexedDB を開きます。
+    //   let request = indexedDB.open('task_cabinet', 1);
+    //   console.log("addTask");
+    //   request.onsuccess = function (event) {
+    //     const db_instance = event.target.result;
+    //     const tx = db_instance.transaction(["task"], "readwrite");
+    //     const store = tx.objectStore('task');
+    //     store.add({id: uuid(), name: taskText, deadline: deadline, estimate: estimate}).onsuccess = function(event) {
+    //       console.log("Seccess Save");
+    //       console.log("SaveResult:" + JSON.stringify({uuid: event.target.result, name: taskText, deadline: deadline, estimate: estimate}))
+    //     };
+    //   };
+    // },
+    // remove: function () {
+    //   const taskId = this.taskId;
+    //   let request = indexedDB.open('task_cabinet', 1);
+    //   request.onsuccess = function (event) {
+    //     const db_instance = event.target.result;
+    //     const tx = db_instance.transaction(["task"], "readwrite");
+    //     const store = tx.objectStore('task');
+    //     store.delete(taskId).onsuccess = function() {
+    //       console.log("success Delete!!!!!!!!")
+    //     };
+    //   };
+    // }
   },
   data: () => ({
     taskText: "",
