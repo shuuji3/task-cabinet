@@ -26,14 +26,14 @@
                   <td>
                     <div class="estimate_time__input">
                       <span class="v-label theme--light">短い</span>
-                      <div class="estimate-time__slider">
-                        <v-slider
-                          v-model="todo.estimate"
-                          id="estimate-time"
-                          min="1"
-                          max="100"
-                          readonly="readonly"
-                        ></v-slider>
+                      <div class="estimate-time__slider px-2">
+                        <v-progress-linear
+                          :value="todo.estimate"
+                          height="10"
+                          color="light-blue"
+                          rounded
+                          readonly
+                        ></v-progress-linear>
                       </div>
                       <span class="v-label theme--light">長い</span>
                     </div>
