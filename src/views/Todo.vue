@@ -139,7 +139,7 @@ export default {
           this.close();
         },
       });
-    }, 10 * 1000);
+    }, this.$store.state.notifyIteration * 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(this.intervalId);
