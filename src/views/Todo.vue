@@ -122,6 +122,7 @@ export default {
 
       push.create(todo.name, {
         body: todo.deadline.format('YYYY-MM-DD HH:mm'),
+        requireInteraction: true,
         onClick: () => {
           window.focus();
           this.close();
