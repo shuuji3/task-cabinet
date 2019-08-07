@@ -77,7 +77,7 @@
 </style>
 
 <script>
-  import push from 'push.js';
+  // import push from 'push.js';
   import moment from 'moment';
   // import uuid from 'uuid/v4';
   export default {
@@ -173,21 +173,7 @@
         return {id: v.id, name: v.name, estimate: v.estimate, deadline: moment.unix(v.deadline)}
       });
     },
-    mounted () {
-        this.intervalId = setInterval(() => {
-            const todo = this.findRecommendedTodo();
-            if (todo === null) {
-                return;
-            }
-            push.create(todo.name, {
-                body: todo.deadline.format('YYYY-MM-DD HH:mm'),
-                onClick: () => {
-                    window.focus();
-                    this.close();
-                },
-            });
-        }, 10 * 1000);
-    },
+    mounted () {},
     beforeDestroy() {
       clearInterval(this.intervalId);
     },
