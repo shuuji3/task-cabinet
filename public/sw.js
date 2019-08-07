@@ -61,6 +61,7 @@ const pushNotification = async (time, message) => {
         console.log(`pushNotification time:${time} message:${message}`);
         if (pushTodo) {
             self.registration.showNotification(pushTodo.name, {
+                requireInteraction: true,
                 body: unixTime2ymd(pushTodo.deadline)
             });
         }
