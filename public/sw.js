@@ -54,14 +54,16 @@ const loopSayHello = (time, message) => {
 };
 
 const pushNotification = async (time, message) => {
-    let res = await getAll ();
-    console.log(findRecommendedTodo(res));
-    const pushTodo = findRecommendedTodo(res);
-    sessionId = setInterval(() => {
+    sessionId = setInterval(async () => {
+        let res = await getAll ();
+        console.log(findRecommendedTodo(res));
+        const pushTodo = findRecommendedTodo(res);
         console.log(`pushNotification time:${time} message:${message}`);
-        self.registration.showNotification(pushTodo.name, {
-            body: unixTime2ymd(pushTodo.deadline)
-        });
+        if (pushTodo) {
+            self.registration.showNotification(pushTodo.name, {
+                body: unixTime2ymd(pushTodo.deadline)
+            });
+        }
     }, time);
 };
 
