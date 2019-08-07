@@ -81,6 +81,13 @@
   import moment from 'moment';
   // import uuid from 'uuid/v4';
   export default {
+    computed: {
+      fSortedTodos() {
+        return this.sortedTodos
+                .slice()
+                .sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
+      },
+    },
     data() {
       return {
         sortedTodos: [],
@@ -171,7 +178,7 @@
       let res = await this.getAll ();
       this.sortedTodos = res.map((v) => {
         return {id: v.id, name: v.name, estimate: v.estimate, deadline: moment.unix(v.deadline)}
-      });
+      }).slice().sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
     },
     mounted () {},
     beforeDestroy() {
