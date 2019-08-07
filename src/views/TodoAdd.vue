@@ -141,6 +141,26 @@ export default {
       };
       this.$store.commit('addTodo', newTodo);
       this.$router.push('/');
+      this.addDB();
+    },
+    addDB: function () {
+      const newTodo = {
+        id: uuid(),
+        name: this.name,
+        deadline: moment(`${this.date} ${this.time}`).unix(),
+        estimate: this.estimate,
+      };
+      // indexedDB を開きます。
+      let request = indexedDB.open('task_cabinet', 1);
+      request.onsuccess = function (event) {
+        const db_instance = event.target.result;
+        const tx = db_instance.transaction(["task"], "readwrite");
+        const store = tx.objectStore('task');
+        store.add(newTodo).onsuccess = function() {
+          // console.log("Seccess Save");
+          // console.log("SaveResult:" + JSON.stringify(newTodo));
+        };
+      };
     },
   },
 };

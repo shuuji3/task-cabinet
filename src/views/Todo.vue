@@ -17,7 +17,8 @@
               <tbody>
               <tr>
                 <th>期限</th>
-                <td>{{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</td>
+                 <td>{{ todo.deadline.format('YYYY-MM-DD HH:mm') }}</td>
+                <!--<td>{{ // moment(todo.deadline).format('YYYY-MM-DD HH:mm') }}</td>-->
               </tr>
               <tr>
                 <th>見積もり時間</th>
@@ -26,11 +27,11 @@
                     <span class="v-label theme--light">短い</span>
                     <div class="estimate-time__slider">
                       <v-slider
-                        v-model="todo.estimate"
-                        id="estimate-time"
-                        min="1"
-                        max="100"
-                        readonly="readonly"
+                              v-model="todo.estimate"
+                              id="estimate-time"
+                              min="1"
+                              max="100"
+                              readonly="readonly"
                       ></v-slider>
                     </div>
                     <span class="v-label theme--light">長い</span>
@@ -57,80 +58,131 @@
   .container {
     margin-bottom: 5em;
   }
-
   .todo-datails tr {
     background: none !important;
   }
-
   .estimate_time__input {
     align-items: center;
     display: flex;
   }
-
   .estimate-time__slider {
     flex: 1;
   }
-
   .estimate-time__slider .v-input__slot {
     margin-bottom: 0;
   }
-
   .estimate-time__slider .v-messages {
     display: none;
   }
 </style>
 
 <script>
-import push from 'push.js';
-
-export default {
-  computed: {
-    sortedTodos() {
-      return this.$store.state.todos
-        .slice()
-        .sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
+  // import push from 'push.js';
+  import moment from 'moment';
+  // import uuid from 'uuid/v4';
+  export default {
+    computed: {
+      fSortedTodos() {
+        return this.sortedTodos
+                .slice()
+                .sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
+      },
     },
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    doneTodo(todo) {
-      this.$store.commit('removeTodo', todo);
+    data() {
+      return {
+        sortedTodos: [],
+      };
     },
-    findRecommendedTodo() {
-      const todos = this.$store.state.todos.slice();
-      if (todos.length === 0) {
-        return null;
-      }
-
-      const sorted = todos
-        .sort((todo1, todo2) => {
-          return (todo1.deadline.diff(todo2.deadline) !== 0
-            ? todo1.deadline.diff(todo2.deadline) : todo2.estimate  - todo1.estimate);
+    methods: {
+      removeDB: function (taskId) {
+        let request = indexedDB.open('task_cabinet', 1);
+        request.onsuccess = function (event) {
+          const db_instance = event.target.result;
+          const tx = db_instance.transaction(["task"], "readwrite");
+          const store = tx.objectStore('task');
+          store.delete(taskId).onsuccess = function() {
+          };
+        };
+      },
+      removeTodo(todo) {
+        const idx = this.sortedTodos.findIndex(v => v.id === todo.id);
+        if (idx !== undefined) {
+          this.sortedTodos.splice(idx, 1);
+        }
+      },
+      doneTodo(todo) {
+        // this.$store.commit('removeTodo', todo);
+        this.removeTodo(todo);
+        this.removeDB(todo.id);
+      },
+      findRecommendedTodo() {
+        const todos = this.$store.state.todos.slice();
+        if (todos.length === 0) {
+          return null;
+        }
+        const sorted = todos
+                .sort((todo1, todo2) => {
+                  return (todo1.deadline.diff(todo2.deadline) !== 0
+                          ? todo1.deadline.diff(todo2.deadline) : todo2.estimate  - todo1.estimate);
+                });
+        return (Math.random()<0.5)
+                ? sorted[0] : sorted[Math.floor(Math.random()*sorted.length)];
+      },
+      loadDB: async function (storeName, id) {
+        return new Promise (
+                function (resolve, reject) {
+                  var request = indexedDB.open (storeName, id);
+                  request.onerror = (event) => {
+                    console.log (event);
+                    reject ("error");
+                  };
+                  request.onupgradeneeded = (event) => {
+                    console.log ("!!!!!!!!!!! not found")
+                    console.log (event);
+                    event.target.transaction.abort ();
+                    reject ("not found");
+                  };
+                  request.onsuccess = (event) => {
+                    // console.log ("loaded");
+                    var  database = event.target.result;
+                    // console.log (database);
+                    resolve (database)
+                  }
+                }
+        )
+      },
+      getAll: async function() {
+        // indexedDB を開きます。
+        let request = await this.loadDB ("task_cabinet");  // indexedDB.open('task_cabinet', 3);
+        // console.log ('Here is the database!')
+        // console.log (request);
+        let tx = request.transaction (["task"], "readwrite");
+        let store = tx.objectStore ("task");
+        let dbarray = await store.getAll ();
+        let result = new Promise ((onSuccess) => {
+          // console.log ("state", dbarray.readyState)
+          dbarray.onsuccess = function (e) {
+            // console.log ("GET success");
+            result = e.target.result;
+            onSuccess (result);
+          }
         });
-      return (Math.random()<0.5)
-        ? sorted[0] : sorted[Math.floor(Math.random()*sorted.length)];
-    }
-  },
-  mounted() {
-    this.intervalId = setInterval(() => {
-      const todo = this.findRecommendedTodo();
-      if (todo === null) {
-        return;
+        let result2 = await result;
+        // console.log ("result2",  result2);
+        // console.log ("dbarray", dbarray);
+        return result2
       }
-
-      push.create(todo.name, {
-        body: todo.deadline.format('YYYY-MM-DD HH:mm'),
-        onClick: () => {
-          window.focus();
-          this.close();
-        },
-      });
-    }, 10 * 1000);
-  },
-  beforeDestroy() {
-    clearInterval(this.intervalId);
-  },
-};
+    },
+    async created() {
+      // console.log ("What's this?")
+      let res = await this.getAll ();
+      this.sortedTodos = res.map((v) => {
+        return {id: v.id, name: v.name, estimate: v.estimate, deadline: moment.unix(v.deadline)}
+      }).slice().sort((todo1, todo2) => todo1.deadline.diff(todo2.deadline));
+    },
+    mounted () {},
+    beforeDestroy() {
+      clearInterval(this.intervalId);
+    },
+  };
 </script>
