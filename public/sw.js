@@ -43,8 +43,8 @@ self.addEventListener('activate', function() {
 const loopSayHello = (time, message) => {
     sessionId = setInterval(() => {
         console.log(`hello time:${time} message:${message}`);
-        self.registration.showNotification(message, {
-            body: "Push通知本文"
-        });
+        // self.registration.showNotification(message, {
+        //     body: "Push通知本文"
+        // });
     }, time);
 };
