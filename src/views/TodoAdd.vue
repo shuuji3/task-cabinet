@@ -9,6 +9,7 @@
           label="タスク名"
           outlined
           shaped
+          autofocus
         ></v-text-field>
       </v-flex>
       <!--日付の選択-->
