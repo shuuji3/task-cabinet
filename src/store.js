@@ -2,68 +2,38 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import uuid from 'uuid/v4';
 import moment from 'moment';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
+const notifyIteration = 30; // 通知間隔(分)
+const initialState = {
+  notifyIteration,
+  todos: [
+    {
+      id: uuid(),
+      name: '「Task Cabinet」へようこそ',
+      deadline: moment('2019-08-01 00:00'),
+      estimate: 25,
+    },
+    {
+      id: uuid(),
+      name: 'まずは右下の「➕」ボタンを押して、新しいタスクを登録しましょう！',
+      deadline: moment('2019-08-01 12:00'),
+      estimate: 50,
+    },
+    {
+      id: uuid(),
+      name: `${notifyIteration}分ごとに、今するべきタスクをおすすめします`,
+      deadline: moment('2019-08-01 12:00'),
+      estimate: 75,
+    },
+  ],
+};
+
 export default new Vuex.Store({
-  state: {
-    todos: [
-      {
-        id: uuid(),
-        name: 'PWAの調査',
-        deadline: moment('2019-08-03 10:30'),
-        estimate: 10,
-      },
-      {
-        id: uuid(),
-        name: 'ローカルでPWAを動くか',
-        deadline: moment('2019-08-03 11:00'),
-        estimate: 20,
-      },
-      {
-        id: uuid(),
-        name: 'Firebaseの通知ができなくなった',
-        deadline: moment('2019-08-03 15:00'),
-        estimate: 30,
-      },
-      {
-        id: uuid(),
-        name: 'Firebaseの調査',
-        deadline: moment('2019-08-03 14:00'),
-        estimate: 40,
-      },
-      {
-        id: uuid(),
-        name: 'サーバーからほしい情報をまとめる',
-        deadline: moment('2019-08-03 13:30'),
-        estimate: 50,
-      },
-      {
-        id: uuid(),
-        name: 'Todoリストのアップデート',
-        deadline: moment('2019-08-03 16:00'),
-        estimate: 15,
-      },
-      {
-        id: uuid(),
-        name: 'Vue.jsのpush通知の調査',
-        deadline: moment('2019-08-03 10:00'),
-        estimate: 55,
-      },
-      {
-        id: uuid(),
-        name: '通知するTodoを決める',
-        deadline: moment('2019-08-03 16:15'),
-        estimate: 70,
-      },
-      {
-        id: uuid(),
-        name: 'デプロイ環境でのパス問題の解決',
-        deadline: moment('2019-08-03 15:45'),
-        estimate: 7,
-      },
-    ],
-  },
+  plugins: [createPersistedState()],
+  state: initialState,
   mutations: {
     addTodo(state, newTodo) {
       state.todos.push(newTodo);
