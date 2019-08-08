@@ -13,34 +13,10 @@
         ></v-text-field>
       </v-flex>
       <!--日付の選択-->
-      <v-flex xs12 sm12>
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          :return-value.sync="date"
-          transition="scale-transition"
-          offset-y
-          full-width
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="日付を選択"
-              prepend-icon="mdi-calendar"
-              readonly
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn text color="primary" @click="$refs.menu.save(date)"
-              >OK</v-btn
-            >
-          </v-date-picker>
-        </v-menu>
+      <v-flex xs12 sm12 mb-2>
+        <v-layout justify-center>
+          <v-date-picker v-model="date"></v-date-picker>
+        </v-layout>
       </v-flex>
       <!--時刻の選択-->
       <v-flex xs12 sm12>
