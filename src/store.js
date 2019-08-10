@@ -6,7 +6,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-const notifyIteration = 30; // 通知間隔(分)
+const notifyIteration = 15; // 通知間隔(分)
 const initialState = {
   notifyIteration,
   todos: [
